@@ -1,0 +1,31 @@
+%clauses
+entrada(paella).
+entrada(gazpacho).
+entrada(consomé).
+
+carne(filete_de_cerdo).
+carne(pollo_asado).
+
+pescado(trucha).
+pescado(bacalao).
+
+postre(flan).
+postre(helado).
+postre(pastel).
+%fin clauses
+platoPrincipal(X) :- carne(X); pescado(X).
+menu(E, P, Po) :- entrada(E), platoPrincipal(P), postre(Po).
+
+
+
+menuConsome(E, P, Po) :- 
+    E = consomé,
+    platoPrincipal(P), 
+    postre(Po).
+
+menu_con_flan(E,P,Po) :- Po = flan, menu(E, P, Po).
+
+menu_sin_flan(E, P, Po) :- menu(E,P,Po), \+ menu_con_flan(E,P,Po).
+
+%menusinflan(e,p,po) := menu(e,p,po), p \= flan
+
